@@ -11,7 +11,7 @@ CiteSeerX Scraper
 
 "Class and methods to save CiteSeerX information"
 
-* Free software: BSD license
+* Free software: MIT license
 * Documentation: https://citeseerx-citation-network.readthedocs.org.
 
 Features
