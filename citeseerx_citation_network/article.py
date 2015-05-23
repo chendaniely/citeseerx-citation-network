@@ -61,6 +61,7 @@ class Article(object):
     def get_authors(self, find_index=0):
         """Set the authors of the paper to self.authors from self.soup
         """
+        assert self.soup is not None, 'self.soup has a value of None'
         author_soup = self._get_authors_soup(find_index)
         author_soup_text = self._get_authors_soup_text(author_soup)
         author_soup_text_clean = self.\
@@ -90,7 +91,8 @@ class Article(object):
 
     @authors.setter
     def authors(self, authors):
-        assert isinstance(authors, list), 'value of authors is not a list'
+        assert isinstance(authors, list) or authors is None,\
+            'value of authors is not a list'
         self._authors = authors
 
     @property
@@ -101,7 +103,7 @@ class Article(object):
 
     @doi.setter
     def doi(self, value):
-        assert isinstance(value, str),\
+        assert isinstance(value, str) or value is None,\
                "doi value passed is of type %s".format(str(type(value)))
         self._doi = value
 
