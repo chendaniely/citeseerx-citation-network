@@ -16,7 +16,6 @@ class Article(object):
         self.doi = None
         self.soup = None
         self.url = None
-        return(self)
 
     def base_article_url(self):
         """Returns the base URL that will link to a paper
