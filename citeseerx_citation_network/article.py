@@ -107,16 +107,6 @@ class Article(object):
         self._doi = value
 
     @property
-    def url(self):
-        """Get or set the URL to the article as a string
-        """
-        return self._url
-
-    @url.setter
-    def url(self, full_url):
-        self._url = full_url
-
-    @property
     def soup(self):
         """Get or set the html soup from the article page
         """
@@ -125,3 +115,13 @@ class Article(object):
     @soup.setter
     def soup(self, soup_text):
         self._soup = soup_text
+
+    @property
+    def url(self):
+        """Get or set the URL to the article as a string
+        """
+        return self._url
+
+    @url.setter
+    def url(self, full_url):
+        self._url = full_url
