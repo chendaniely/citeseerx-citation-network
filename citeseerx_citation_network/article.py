@@ -37,15 +37,15 @@ class Article(object):
         """Get the authors HTML from self.soup
         """
         author_sting = self.soup.\
-                       find_all('div', id="docAuthors")[find_index]
+            find_all('div', id="docAuthors")[find_index]
         return(author_sting)
 
     def _get_authors_soup_text(self, author_soup):
         """Get the string contents from the authors soup
         """
         author_soup_text = author_soup.\
-                       getText().\
-                       split(',')
+            getText().\
+            split(',')
         return(author_soup_text)
 
     def _get_authors_soup_text_clean(self, author_soup_text):
