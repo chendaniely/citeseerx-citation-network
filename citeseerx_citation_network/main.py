@@ -1,4 +1,8 @@
 import article
+import imp
+import re
+
+imp.reload(article)
 
 a = article.Article()
 
@@ -9,4 +13,13 @@ print(a.url)
 
 a.get_page_soup()
 
-print(a.soup)
+# print(a.soup)
+
+# print(len(a.get_authors_soup()))
+print(a.get_authors().authors)
+
+# for blah in a.get_authors_soup():
+#     stripped = blah.strip()
+#     text = re.sub('^by\s+', '', stripped)
+#     cleaned_again = text.strip()
+#     print(cleaned_again)
