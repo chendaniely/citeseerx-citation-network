@@ -11,8 +11,12 @@ import requests
 class Article(object):
     """An article from the citeseer-x database"""
 
-    # def __init__(self):
-    #     return(self)
+    def __init__(self):
+        self.authors = None
+        self.doi = None
+        self.soup = None
+        self.url = None
+        return(self)
 
     def base_article_url(self):
         """Returns the base URL that will link to a paper
