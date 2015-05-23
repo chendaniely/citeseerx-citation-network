@@ -30,17 +30,23 @@ class Article(object):
         return(self.base_article_url() + doi_string)
 
     def _get_authors_soup(self, find_index=0):
+        """Get the authors HTML from self.soup
+        """
         author_sting = self.soup.\
                        find_all('div', id="docAuthors")[find_index]
         return(author_sting)
 
     def _get_authors_soup_text(self, author_soup):
+        """Get the string contents from the authors soup
+        """
         author_soup_text = author_soup.\
                        getText().\
                        split(',')
         return(author_soup_text)
 
     def _get_authors_soup_text_clean(self, author_soup_text):
+        """Clean the text of the authors text and add each author to a list
+        """
         authors = []
         for author in author_soup_text:
             initial_strip = author.strip()
@@ -50,6 +56,8 @@ class Article(object):
         return(authors)
 
     def get_authors(self, find_index=0):
+        """Set the authors of the paper to self.authors from self.soup
+        """
         author_soup = self._get_authors_soup(find_index)
         author_soup_text = self._get_authors_soup_text(author_soup)
         author_soup_text_clean = self.\
