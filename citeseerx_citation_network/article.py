@@ -98,9 +98,10 @@ class Article(object):
     def parse_url_get_doi(self, url):
         assert self.url is not None, "Can't parse url when it is None"
         return(url.split("doi=")[1])
+
     @property
     def authors(self):
-        """Get or set the the Articles of the paper as a list
+        """Get or set the the authors of the paper as a list
         """
         return self._authors
 
