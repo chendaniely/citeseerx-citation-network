@@ -11,11 +11,23 @@ import requests
 class Article(object):
     """An article from the citeseer-x database"""
 
-    def __init__(self):
+    def __init__(self, doi=None, url=None,
+                 base_url="http://citeseerx.ist.psu.edu/viewdoc/summary?doi="):
+        self.base_url = base_url
+        if doi is not None:
+            assert isinstance(doi, str), "doi needs to be a string"
+            self.doi = doi
+            self.url = self.base_url + doi
+        elif url is not None:
+            assert isinstance(url, str), "url needs to be a string"
+            self.url = url
+            self.doi = self.parse_url_get_doi(self.url)
+        else:
+            self.doi = None
+            self.url = None
+
         self.authors = None
-        self.doi = None
         self.soup = None
-        self.url = None
 
     def base_article_url(self):
         """Returns the base URL that will link to a paper
@@ -83,9 +95,13 @@ class Article(object):
         self.soup = BeautifulSoup(data)
         return(self)
 
+    def parse_url_get_doi(self, url):
+        assert self.url is not None, "Can't parse url when it is None"
+        return(url.split("doi=")[1])
+
     @property
     def authors(self):
-        """Get or set the the Articles of the paper as a list
+        """Get or set the the authors of the paper as a list
         """
         return self._authors
 
@@ -96,6 +112,17 @@ class Article(object):
         self._authors = authors
 
     @property
+    def base_url(self):
+        """Get or set the base_url of the paper
+        """
+        return self._base_url
+
+    @base_url.setter
+    def base_url(self, base_url):
+        assert isinstance(base_url, str), ""
+        self._base_url = base_url
+
+    @property
     def doi(self):
         """Get or set the article's DOI as a string
         """
@@ -104,7 +131,7 @@ class Article(object):
     @doi.setter
     def doi(self, value):
         assert isinstance(value, str) or value is None,\
-               "doi value passed is of type %s".format(str(type(value)))
+               "doi value passed is of type {}".format(str(type(value)))
         self._doi = value
 
     @property
