@@ -1,6 +1,6 @@
 import article
 import imp
-import re
+import time
 
 imp.reload(article)
 
@@ -25,12 +25,15 @@ print(a.authors)
 #     cleaned_again = text.strip()
 #     print(cleaned_again)
 
+time.sleep(5)
 
 a = article.Article(doi='10.1.1.13.2424')
 print(a.url)
 a.get_page_soup()
 print(a.get_authors())
 print(a.authors)
+
+time.sleep(3.5)
 
 url = "http://citeseerx.ist.psu.edu/viewdoc/summary?doi="\
         "10.1.1.13.2424"
