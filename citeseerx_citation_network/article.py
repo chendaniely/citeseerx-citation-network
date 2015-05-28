@@ -129,7 +129,7 @@ class Article(object):
     @doi.setter
     def doi(self, value):
         assert isinstance(value, str) or value is None,\
-               "doi value passed is of type %s".format(str(type(value)))
+               "doi value passed is of type {}".format(str(type(value)))
         self._doi = value
 
     @property
