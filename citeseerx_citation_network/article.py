@@ -96,6 +96,15 @@ class Article(object):
         self._authors = authors
 
     @property
+    def base_url(self):
+        """Get or set the base_url of the paper
+        """
+        return self._base_url
+
+    @base_url.setter
+    def base_url(self, base_url):
+        assert isinstance(base_url, str), ""
+        self._base_url = base_url
     def doi(self):
         """Get or set the article's DOI as a string
         """
