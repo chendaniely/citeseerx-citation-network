@@ -1,8 +1,11 @@
-import article
 import imp
 import time
 
+import article
+import citations
+
 imp.reload(article)
+imp.reload(citations)
 
 a = article.Article()
 
