@@ -121,6 +121,8 @@ class Article(object):
     def base_url(self, base_url):
         assert isinstance(base_url, str), ""
         self._base_url = base_url
+
+    @property
     def doi(self):
         """Get or set the article's DOI as a string
         """
