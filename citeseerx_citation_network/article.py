@@ -11,11 +11,23 @@ import requests
 class Article(object):
     """An article from the citeseer-x database"""
 
-    def __init__(self):
+    def __init__(self, doi=None, url=None,
+                 base_url="http://citeseerx.ist.psu.edu/viewdoc/summary?doi="):
+        self.base_url = base_url
+        if doi is not None:
+            assert isinstance(doi, str), "doi needs to be a string"
+            self.doi = doi
+            self.url = self.base_url + doi
+        elif url is not None:
+            assert isinstance(url, str), "url needs to be a string"
+            self.url = url
+            self.doi = self.parse_url_get_doi(self.url)
+        else:
+            self.doi = None
+            self.url = None
+
         self.authors = None
-        self.doi = None
         self.soup = None
-        self.url = None
 
     def base_article_url(self):
         """Returns the base URL that will link to a paper
