@@ -9,39 +9,17 @@ class Citations(permalink.DigitalObjectIdentifier):
     """Citations results from an Article
     """
 
-    def __init__(self, article=None, **kwargs):
-        super(Citations, self).__init__(**kwargs)
+    def __init__(self, article=None, doi=None, url=None,
+                 base_url='http://citeseerx.ist.psu.edu/showciting?doi='):
+        if article is not None:
+            assert isinstance(article, object),\
+                "article param needs to be an object, currently {}".\
+                format(str(type(article)))
+            self.article = article
+            self.doi = article.doi
+            self.url = url
+            self.base_url = base_url
+        else:
+            super(Citations, self).__init__(doi=doi, url=url,
+                                            base_url=base_url)
 
-        # if article is not None:
-        #     pass
-        # elif doi is not None:
-        #     self.doi = doi
-        # elif url is not None:
-        #     self.url = url
-        # else:
-        #     self.doi = None
-        #     self.url = None
-
-    # @property
-    # def doi(self):
-    #     """Get or set the doi to the citations of an article as a string
-    #     """
-    #     return self._doi
-
-    # @doi.setter
-    # def doi(self, doi):
-    #     assert isinstance(doi, str) or doi is None,\
-    #         "doi is not of type string it is: {}".format(str(type(doi)))
-    #     self._doi = doi
-
-    # @property
-    # def url(self):
-    #     """Get or set the url to the citations of an article
-    #     """
-    #     return self._url
-
-    # @url.setter
-    # def url(self, url):
-    #     assert isinstance(url, str) or url is None,\
-    #         "url is not of type string, it is: {}".format(str(type(url)))
-    #     self._url = url
