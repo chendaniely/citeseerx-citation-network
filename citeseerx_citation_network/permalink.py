@@ -10,6 +10,8 @@ class DigitalObjectIdentifier(object):
     def __init__(self, doi=None, url=None, base_url=None, **kwargs):
         if doi is not None:
             self.doi = doi
+        else:
+            self.doi = None
         if url is not None:
             # If you pass in a full url, it can be used to parse and assign
             # the base url and the DOI
@@ -17,8 +19,13 @@ class DigitalObjectIdentifier(object):
             # assignment
             self.url = url
             self.parse_url_into_base_doi(**kwargs)
+        else:
+            self.url = None
         if base_url is not None:
             self.base_url = base_url
+        else:
+            self.base_url = None
+
 
     def parse_url_into_base_doi(self, url=None, delim='doi=',
                                 url_index=0, doi_index=1, parse=True):
