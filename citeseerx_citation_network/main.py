@@ -7,6 +7,52 @@ import citations
 imp.reload(article)
 imp.reload(citations)
 
+c = citations.Citations()
+print(c)
+
+print('-----')
+# time.sleep(5)
+
+c = citations.Citations(doi='10.1.1.13.2424')
+print(c.doi)
+print(c.base_url)
+print(c.url)
+
+# time.sleep(3.5)
+
+print('======')
+
+a = article.Article()
+a.url = "http://citeseerx.ist.psu.edu/viewdoc/summary?doi="\
+        "10.1.1.13.2424"
+
+c = citations.Citations(article=a)
+print(c.article.url)
+print(c.doi)
+print(c.base_url)
+print(c.url)
+
+print('~~~~~')
+
+a = article.Article(url="http://citeseerx.ist.psu.edu/viewdoc/summary?doi="
+                    "10.1.1.13.2424")
+
+c = citations.Citations(article=a)
+print(c.article.url)
+print(c.doi)
+print(c.base_url)
+print(c.url)
+c.url = c.base_url + c.doi
+c.parse_url_into_base_doi()
+print(c.url)
+print(c.doi)
+print(c.base_url)
+
+print('++++++++++')
+
+c.get_page_soup().get_result_info()
+print(c.result_info)
+
 # a = article.Article()
 
 # a.url = "http://citeseerx.ist.psu.edu/viewdoc/summary?doi="\
