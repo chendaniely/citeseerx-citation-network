@@ -23,3 +23,21 @@ class Citations(permalink.DigitalObjectIdentifier):
             super(Citations, self).__init__(doi=doi, url=url,
                                             base_url=base_url)
 
+
+    def get_page_soup(self, url=None):
+        """Use self.url to get the HTML soup of the article
+        and set the HTML soup to self.soup.  If no url is passed
+        will use self.url to get soup
+
+        :param url: url to get soup from, defaults to None
+        :type url: str
+
+        :returns: self
+        """
+        if url is None:
+            r = requests.get(self.url)
+        else:
+            r = requests.get(url)
+        data = r.text
+        self.soup = BeautifulSoup(data)
+        return(self)
