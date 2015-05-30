@@ -2,6 +2,11 @@
 # -*- coding: utf-8 -*-
 """Module that defines citations search results from an article"""
 
+import re
+
+import requests
+from bs4 import BeautifulSoup
+
 import permalink
 
 
@@ -23,6 +28,25 @@ class Citations(permalink.DigitalObjectIdentifier):
             super(Citations, self).__init__(doi=doi, url=url,
                                             base_url=base_url)
 
+    def _get_result_info_soup(self, find_index=0):
+        return(self.soup.find_all('div', id='result_info')[find_index])
+
+    def _get_results_info_soup_clean(self, result_info_soup):
+        stripped = result_info_soup.getText().strip()
+        single_white_space = re.sub('\s+', ' ', stripped)
+        match = re.match('^Results\s\d+\s-\s\d+\sof\s\d+', single_white_space)
+        assert match is not None
+        return(single_white_space)
+
+    def get_result_info(self, find_index=0):
+        """Get the number of results
+        """
+        assert self.soup is not None, "self.soup has a value of None"
+        result_info_soup = self._get_result_info_soup(find_index)
+        result_info_soup_clean = self.\
+            _get_results_info_soup_clean(result_info_soup)
+        self.result_info = result_info_soup_clean
+        return(self)
 
     def get_page_soup(self, url=None):
         """Use self.url to get the HTML soup of the article
