@@ -39,6 +39,14 @@ class Citations(permalink.DigitalObjectIdentifier):
         assert match is not None
         return(single_white_space)
 
+    def _get_page_soup_text(self, url):
+        if url is None:
+            r = requests.get(self.url)
+        else:
+            r = requests.get(url)
+        data = r.text
+        return(BeautifulSoup(data))
+
     def get_num_results(self, result_info=None,
                         split1=' of ', idx1=1,
                         split2=' ', idx2=0):
@@ -89,20 +97,23 @@ class Citations(permalink.DigitalObjectIdentifier):
         self.result_info = result_info_soup_clean
         return(self)
 
-    def get_page_soup(self, url=None):
-        """Use self.url to get the HTML soup of the article
-        and set the HTML soup to self.soup.  If no url is passed
-        will use self.url to get soup
+    def get_page_soup(self, url=None, return_method='self'):
+        """Get the HTML soup of the article
+        Depending on return_method, the soup would either be returned
+        as a string, or set to self.soup and return self
+
+        If no url is passed, then the relevent class variable will be used
 
         :param url: url to get soup from, defaults to None
         :type url: str
 
+        :param return_method: how to set the soup - 'self' or 'str'
+        :type return_method: str
+
         :returns: self
         """
-        if url is None:
-            r = requests.get(self.url)
-        else:
-            r = requests.get(url)
-        data = r.text
-        self.soup = BeautifulSoup(data)
-        return(self)
+        if return_method == 'self':
+            self.soup = self._get_page_soup_text(url)
+            return(self)
+        if return_method == 'str':
+            return(self._get_page_soup_text(url))
