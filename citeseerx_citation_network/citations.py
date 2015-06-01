@@ -75,6 +75,8 @@ class Citations(permalink.DigitalObjectIdentifier):
         Default is 1.
         :type offset: int
 
+        :returns: self
+
         The offset value exists because citeseerx does not count by page
         results, but rather it shows the result number to start from.
         if the num_results_per_page is 10, then the second page will show
