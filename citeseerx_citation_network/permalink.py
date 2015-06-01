@@ -26,7 +26,6 @@ class DigitalObjectIdentifier(object):
         else:
             self.base_url = None
 
-
     def parse_url_into_base_doi(self, url=None, delim='doi=',
                                 url_index=0, doi_index=1, parse=True):
         """Parse a url into it's base and doi and set each part accordinly
