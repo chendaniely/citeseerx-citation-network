@@ -4,9 +4,12 @@
 
 import re
 import math
+import random
+import time
 
 import requests
 from bs4 import BeautifulSoup
+from progressbar import ProgressBar
 
 import permalink
 
@@ -46,6 +49,57 @@ class Citations(permalink.DigitalObjectIdentifier):
             r = requests.get(url)
         data = r.text
         return(BeautifulSoup(data))
+
+    def get_all_result_soup(self, save_to=None, list_append=True,
+                            base_result_page_url=None, max_pause=120):
+        """Iteratively get search result pages
+
+        Iteratevely gets the search result pages, by default it will just
+        print the values to screen and be stored in a variable.
+        If a CSV or Database handler is passed, it will append to the
+        file or database at the end of each iteration.  This could potentially
+        be used to save work as the loop progresses
+
+        :param save_to: where to save results to, default is None, which will
+        only save values to a python list.
+        :type save_to: str
+
+        :param list_append: Whether the values should be stored in a list.
+        :type list_append: bool
+
+        :param base_result_page_url: base url of page results. Defaults to
+        appending the appropriate suffix to self.url (which contains the doi)
+        :type base_result_page_url: str
+
+        :param max_pause: maximum number of seconds to pause between results.
+        Defaults to 120 seconds (2 minutes)
+        :type max_pause: int
+        """
+        if base_result_page_url is None:
+            base_result_page_url = self.url + '&sort=cite&start='
+        print('base url for page results: {}'.format(base_result_page_url))
+        assert self.num_page_results.is_integer(),\
+            'self.num_page_results is not a whole number'
+
+        count = 0
+        list_of_result_soup = []
+        pbar = ProgressBar()
+        for page in pbar(range(int(self.num_page_results) + 1)):
+            start_citation = page * 10
+            page_url = base_result_page_url + str(start_citation)
+            # print(page_url)
+            list_of_result_soup.\
+                append(self.get_page_soup(url=page_url, return_method='str'))
+            # print(list_of_result_soup)
+            pause_time = random.randrange(max_pause) + random.random()
+            # print('Pausing for {} seconds.'.format(str(pause_time)))
+            time.sleep(pause_time)
+            if count == 2:
+                break
+            count += 1
+        self.list_all_result_page_soup = list_of_result_soup
+
+        return(self)
 
     def get_num_results(self, result_info=None,
                         split1=' of ', idx1=1,
