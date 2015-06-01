@@ -50,8 +50,13 @@ print(c.base_url)
 
 print('++++++++++')
 
-c.get_page_soup().get_result_info()
-print(c.result_info)
+c.get_page_soup().get_result_info().get_num_results().get_num_page_results()
+# print(c.soup)
+print("result info: ", c.result_info)
+print("parsed num results: {}".format(str(c.num_results)))
+print("num page results: {}".format(str(c.num_page_results)))
+
+time.sleep(1)
 
 # a = article.Article()
 
