@@ -81,8 +81,11 @@ class Citations(permalink.DigitalObjectIdentifier):
         :type max_pause: int
         """
         if base_result_page_url is None:
-            base_result_page_url = self.url + '&sort=cite&start='
-        print('base url for page results: {}'.format(base_result_page_url))
+            base_result_page_url = self.url + base_search_result_url
+        else:
+            base_result_page_url = base_result_page_url + \
+                                   base_search_result_url
+
         assert self.num_page_results.is_integer(),\
             'self.num_page_results is not a whole number'
 
