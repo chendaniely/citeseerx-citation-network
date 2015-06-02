@@ -99,11 +99,12 @@ class Citations(permalink.DigitalObjectIdentifier):
             start_citation = page * 10
             page_url = base_result_page_url + str(start_citation)
             page_soup = self.get_page_soup(url=page_url, return_method='str')
-            try:
-                save_to.writerow([[self.page_soup]])
-            except:
-                warnings.warn('unable to write csv from save_to')
-            if save_to is None:
+            if save_to is not None:
+                try:
+                    save_to.writerow([[self.page_soup]])
+                except:
+                    warnings.warn('unable to write csv from save_to')
+            else:
                 print(page_soup)
             if list_append is True:
                 list_of_result_soup.append(page_soup)
