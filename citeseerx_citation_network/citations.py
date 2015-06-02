@@ -89,8 +89,11 @@ class Citations(permalink.DigitalObjectIdentifier):
         assert self.num_page_results.is_integer(),\
             'self.num_page_results is not a whole number'
 
-        list_of_result_soup = []
+        if list_append is True:
+            list_of_result_soup = []
+
         pbar = ProgressBar()
+
         for page in pbar(range(int(self.num_page_results) + 1)[:3]):
             start_citation = page * 10
             page_url = base_result_page_url + str(start_citation)
@@ -101,7 +104,8 @@ class Citations(permalink.DigitalObjectIdentifier):
             pause_time = random.randrange(max_pause) + random.random()
             # print('Pausing for {} seconds.'.format(str(pause_time)))
             time.sleep(pause_time)
-        self.list_all_result_page_soup = list_of_result_soup
+        if list_append is True:
+            self.list_all_result_page_soup = list_of_result_soup
         return(self)
 
     def get_num_results(self, result_info=None,
