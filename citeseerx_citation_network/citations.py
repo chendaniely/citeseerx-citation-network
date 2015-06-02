@@ -101,7 +101,7 @@ class Citations(permalink.DigitalObjectIdentifier):
             page_soup = self.get_page_soup(url=page_url, return_method='str')
             if save_to is not None:
                 try:
-                    save_to.writerow([[page_soup]])
+                    save_to.writerows([[self.doi, page, self.url, page_soup]])
                 except:
                     warnings.warn('unable to write csv from save_to')
             else:
