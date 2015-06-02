@@ -51,7 +51,9 @@ class Citations(permalink.DigitalObjectIdentifier):
         return(BeautifulSoup(data))
 
     def get_all_result_soup(self, save_to=None, list_append=True,
-                            base_result_page_url=None, max_pause=120):
+                            base_result_page_url=None,
+                            base_search_result_url='&sort=cite&start=',
+                            max_pause=120):
         """Iteratively get search result pages
 
         Iteratevely gets the search result pages, by default it will just
@@ -70,6 +72,9 @@ class Citations(permalink.DigitalObjectIdentifier):
         :param base_result_page_url: base url of page results. Defaults to
         appending the appropriate suffix to self.url (which contains the doi)
         :type base_result_page_url: str
+
+        :param base_search_ressult_url: appended to the base_result_page_url
+        :type base_search_result_url: str
 
         :param max_pause: maximum number of seconds to pause between results.
         Defaults to 120 seconds (2 minutes)
