@@ -103,6 +103,8 @@ class Citations(permalink.DigitalObjectIdentifier):
                 save_to.writerow([[self.page_soup]])
             except:
                 warnings.warn('unable to write csv from save_to')
+            if save_to is None:
+                print(page_soup)
             pause_time = random.randrange(max_pause) + random.random()
             time.sleep(pause_time)
         if list_append is True:
