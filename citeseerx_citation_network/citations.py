@@ -97,12 +97,9 @@ class Citations(permalink.DigitalObjectIdentifier):
         for page in pbar(range(int(self.num_page_results) + 1)[:3]):
             start_citation = page * 10
             page_url = base_result_page_url + str(start_citation)
-            # print(page_url)
             list_of_result_soup.\
                 append(self.get_page_soup(url=page_url, return_method='str'))
-            # print(list_of_result_soup)
             pause_time = random.randrange(max_pause) + random.random()
-            # print('Pausing for {} seconds.'.format(str(pause_time)))
             time.sleep(pause_time)
         if list_append is True:
             self.list_all_result_page_soup = list_of_result_soup
