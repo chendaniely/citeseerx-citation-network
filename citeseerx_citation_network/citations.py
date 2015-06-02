@@ -6,6 +6,7 @@ import re
 import math
 import random
 import time
+import warnings
 
 import requests
 from bs4 import BeautifulSoup
@@ -97,8 +98,11 @@ class Citations(permalink.DigitalObjectIdentifier):
         for page in pbar(range(int(self.num_page_results) + 1)[:3]):
             start_citation = page * 10
             page_url = base_result_page_url + str(start_citation)
-            list_of_result_soup.\
-                append(self.get_page_soup(url=page_url, return_method='str'))
+            page_soup = self.get_page_soup(url=page_url, return_method='str')
+            try:
+                save_to.writerow([[self.page_soup]])
+            except:
+                warnings.warn('unable to write csv from save_to')
             pause_time = random.randrange(max_pause) + random.random()
             time.sleep(pause_time)
         if list_append is True:
