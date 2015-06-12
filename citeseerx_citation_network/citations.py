@@ -95,7 +95,7 @@ class Citations(permalink.DigitalObjectIdentifier):
 
         pbar = ProgressBar()
 
-        for page in pbar(range(int(self.num_page_results) + 1)[:3]):
+        for page in pbar(range(int(self.num_page_results) + 1)):
             start_citation = page * 10
             page_url = base_result_page_url + str(start_citation)
             page_soup = self.get_page_soup(url=page_url, return_method='str')
